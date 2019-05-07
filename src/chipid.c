@@ -433,8 +433,20 @@ static const struct stlink_chipid_params devices[] = {
             .bootrom_base = 0x1fff0000,      // Tables 4-6, pages 80-81 (Bank 1 system memory)
             .bootrom_size = 0x7000           // 28k (per bank), same source as base
         },
-
-
+            {
+            // STLINK_CHIPID_STM32_WB55RG
+            // From RM0434
+        .chip_id = STLINK_CHIPID_STM32_WB55,
+            .description = "WB55 device",
+            .flash_type = STLINK_FLASH_TYPE_F4,
+            .flash_size_reg = 0x1fff75e0, // "Flash size data register (sec 42.2.1, page 1528)
+            .flash_pagesize = 0x1000,     // 4K (section 3.2 page 74)
+            // SRAM1 is "up to" 196k in the standard Cortex-M memory map;
+            // SRAM2 is 64K mapped at 0x20030000 (Table 1, page 70)
+            .sram_size = 0x30000,
+            .bootrom_base = 0x1fff0000,   // Table 1, pages 70-71 
+            .bootrom_size = 0x7000        // 28k
+        },
  };
 
 const struct stlink_chipid_params *stlink_chipid_get_params(uint32_t chipid)
